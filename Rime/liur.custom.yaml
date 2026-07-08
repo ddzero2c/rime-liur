@@ -1,3 +1,18 @@
 patch:
   translator/enable_completion: true  #打開逐碼提示碼
   "switches/@2/reset": 0  #反查開關 (0為關閉，1為開啟)
+  # 上字後簡碼提示（系統通知）
+  # 預設開啟，改 reset: 0 則預設關閉
+  "switches/+":
+    - name: commit_hint
+      states: [ 簡碼提示關, 簡碼提示開 ]
+      reset: 1
+  engine/processors:
+    - lua_processor@commit_hint
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - selector
+    - navigator
+    - express_editor
